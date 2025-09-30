@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hızlı Kulüp Kayıt Formu</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <style>
+      :root{--bg:#0f172a;--bg2:#111827;--card:#0b1220;--muted:#94a3b8;--focus:#22c55e;--accent:#22c55e}
+      body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:40px;background:radial-gradient(1200px 600px at -10% -20%, #1f2937 0, transparent 40%), radial-gradient(1000px 600px at 110% 0%, #0e7490 0, transparent 35%), linear-gradient(180deg,#0b1020 0%, #0b1020 40%, #0a0f1a 100%);color:#e5e7eb}
+      .card{max-width:720px;margin:20px auto;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));backdrop-filter:blur(10px);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);padding:28px;border:1px solid rgba(255,255,255,.08)}
+      h1{font-size:26px;margin:0 0 6px}
+      .sub{font-size:13px;color:#9ca3af;margin-bottom:18px}
+      label{display:block;font-size:14px;margin:12px 0 6px}
+      input,select,textarea{width:100%;padding:12px 14px;border:1px solid rgba(148,163,184,.25);border-radius:12px;font-size:14px;background:rgba(255,255,255,.03);color:#e5e7eb;outline:none;transition:border-color .15s, box-shadow .15s}
+      input::placeholder,textarea::placeholder{color:#6b7280}
+      input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.15)}
+      .hint{font-size:12px;color:#9ca3af;margin-top:4px}
+      .field-err{font-size:12px;color:#fca5a5;margin-top:6px}
+      .error{border-color:#ef4444;background:rgba(239,68,68,.06)}
+      button{margin-top:18px;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,#16a34a,#15803d);color:#fff;border:none;padding:14px 16px;border-radius:12px;font-weight:800;cursor:pointer;width:100%;transition:transform .08s ease, opacity .15s}
+      button:hover{opacity:.95}
+      button:active{transform:translateY(1px)}
+      button.loading{position:relative;color:transparent}
+      button.loading:after{content:"";position:absolute;width:18px;height:18px;border:3px solid rgba(255,255,255,.6);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      button[disabled]{opacity:.6;cursor:not-allowed}
+      .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      @media (max-width:560px){.row{grid-template-columns:1fr}}
+      .notice{font-size:12px;color:#9ca3af;margin-top:10px}
+      .ok{color:#34d399;font-weight:700}
+      .err{color:#fca5a5;font-weight:700}
+      .brand{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+      .brand img{width:22px;height:22px}
+      #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0b1220;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .2s}
+      #toast.ok{background:#065f46}
+      #toast.err{background:#7f1d1d}
+      #toast.show{opacity:1}
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="brand"><img src="/favicon.svg" alt=""/><h1>Yeni Üye Kaydı</h1></div>
+      <div class="sub">Lütfen tüm alanları eksiksiz doldurun.</div>
+      <form id="f">
+        <label>Ad Soyad</label>
+        <input id="fullName" placeholder="Ad Soyad" autocomplete="name" required />
+        <div class="field-err" id="e-fullName"></div>
+        <div class="row">
+          <div>
+            <label>Öğrenci No</label>
+            <input id="studentNumber" inputmode="numeric" placeholder="Örn: 20xxxxxxxxx" required />
+            <div class="hint">Sadece rakam</div>
+            <div class="field-err" id="e-studentNumber"></div>
+          </div>
+          <div>
+            <label>Telefon</label>
+            <input id="phoneNumber" type="tel" inputmode="tel" placeholder="05xxxxxxxxx" required />
+            <div class="field-err" id="e-phoneNumber"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Bölüm</label>
+            <input id="department" placeholder="Bölüm adı" required />
+            <div class="field-err" id="e-department"></div>
+          </div>
+          <div>
+            <label>Kaçıncı Sınıf</label>
+            <input id="classYear" type="number" min="1" max="4" step="1" placeholder="1-4" required />
+            <div class="field-err" id="e-classYear"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Öğrenci E-posta</label>
+            <input id="studentEmail" type="email" placeholder="ad.soyad@okul.edu.tr" autocomplete="email" required />
+            <div class="field-err" id="e-studentEmail"></div>
+          </div>
+        </div>
+        <button id="btn" type="submit">Kaydet</button>
+        <div class="notice" id="msg"></div>
+      </form>
+    </div>
+    <div id="toast"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
