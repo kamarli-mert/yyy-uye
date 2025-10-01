@@ -1,5 +1,12 @@
 console.log('app.js loaded');
 
+// Ortama göre API kök adresini belirle
+// - file:// ile açıldıysa: yerel geliştirme sunucusu varsayılanı
+// - http(s):// ise: aynı origin altında çalışan /api'yi kullan
+const API_BASE = (typeof window !== 'undefined' && window.API_BASE)
+  ? window.API_BASE
+  : (location.origin.startsWith('file://') ? 'http://localhost:3000' : '');
+
 const form = document.getElementById('f');
 const btn = document.getElementById('btn');
 const msg = document.getElementById('msg');
@@ -75,7 +82,7 @@ form.addEventListener('submit', async (e) => {
     formSecret: 'abc123def456'
   };
   try{
-    const res = await fetch('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const res = await fetch(`${API_BASE}/api/register`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
     const data = await res.json();
     if(data.ok){
       msg.textContent = 'Kayıt alındı'; msg.className='notice ok';
