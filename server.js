@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
@@ -46,8 +47,14 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Statik frontend
-app.use(express.static('public'));
+// Statik frontend (mutlak yol ile)
+const publicDir = path.join(__dirname, 'public');
+app.use(express.static(publicDir));
+
+// Kök rota için açık dosya servisi (bazı ortamlarda gerekli)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(publicDir, 'index.html'));
+});
 
 // Basit healthcheck
 app.get('/health', (req, res) => {
