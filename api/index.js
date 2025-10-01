@@ -22,8 +22,17 @@ app.use(cors({
   }
 }));
 
-// Oran sınırlama
-const limiter = rateLimit({ windowMs: 60 * 1000, max: 60 });
+// Oran sınırlama - Vercel için özel yapılandırma
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 dakika
+  max: 60, // dakikada 60 istek
+  keyGenerator: (req) => {
+    // Vercel'de X-Forwarded-For header'ını kullan
+    return req.headers['x-forwarded-for'] || req.ip || 'unknown';
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 app.use(limiter);
 
 // Statik frontend
