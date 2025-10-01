@@ -1,5 +1,10 @@
 {
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.js" }
+  ],
+  "routes": [
+    { "src": "/$", "dest": "/public/index.html" },
+    { "src": "/app.js", "dest": "/public/app.js" },
+    { "src": "/favicon.svg", "dest": "/public/favicon.svg" }
   ]
 }
