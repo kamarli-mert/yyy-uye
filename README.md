@@ -28,6 +28,11 @@ npm run dev
 ```
 `http://localhost:3000` adresinde form açılır.
 
+### Dağıtım Notları
+- Vercel üzerinde `public/` klasörü statik dosyalar için kullanılır.
+- Kök rota (`/`) yönlendirme ile `public/index.html` dosyasına gider.
+- API istekleri `api/index.js` üzerinden çalışır.
+
 ### Google Yetkilendirme
 - Google Cloud Console'da bir proje oluşturup Service Account yaratın.
 - Bu hesabın e-postasını hedef Sheet'e **Edit** yetkisiyle paylaşın.
