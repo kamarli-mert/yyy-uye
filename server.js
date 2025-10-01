@@ -33,7 +33,13 @@ const limiter = rateLimit({
   max: 60, // dakikada 60 istek
   keyGenerator: (req) => {
     // Vercel'de X-Forwarded-For header'ını kullan
-    return req.headers['x-forwarded-for'] || req.ip || 'unknown';
+    const forwardedFor = req.headers['x-forwarded-for'];
+    if (forwardedFor) {
+      // İlk IP'yi al (proxy chain'den)
+      return forwardedFor.split(',')[0].trim();
+    }
+    // IPv6 desteği için ipKeyGenerator kullan
+    return rateLimit.ipKeyGenerator(req);
   },
   standardHeaders: true,
   legacyHeaders: false,
