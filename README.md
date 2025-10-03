@@ -16,9 +16,9 @@ Basit bir web formu ile Google Sheets'e üye bilgisi ekler. Frontend statik HTML
 ```
 PORT=3000
 ALLOWED_ORIGINS=http://localhost:3000
-GOOGLE_SHEET_ID=1CR9wJIkzqJqlET2tfHAYcsoFhBxcSi8kwSMa66jFDhA
+GOOGLE_SHEET_ID=...
 GOOGLE_SHEET_TAB=Sayfa1
-FORM_SECRET=abc123def456
+FORM_SECRET=...
 GOOGLE_SERVICE_ACCOUNT_BASE64=...TEK_SATIR_BASE64...
 ```
 
